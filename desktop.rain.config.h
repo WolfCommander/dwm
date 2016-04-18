@@ -1,6 +1,5 @@
 /* See LICENSE file for copyright and license details. */
 #include "/usr/include/X11/XF86keysym.h"
-#include "/usr/include/xkbcommon/xkbcommon-keysyms.h"
 #include "fibonacci.c"
 #include "grid.c"
 #include "horizgrid.c"
@@ -68,8 +67,6 @@ static const char *termcmd[]  = { "urxvt", NULL };
 static const char *volup[] = { "amixer", "-q", "set", "Master", "5%+" };
 static const char *voldown[] = { "amixer", "-q", "set", "Master", "5%-" };
 static const char *volmute[] = { "amixer", "-q", "set", "Master", "toggle", "cap" };
-static const char *brightdown[] = { "xbacklight", "-dec", "10" };
-static const char *brightup[] = { "xbacklight", "-inc", "10" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -103,8 +100,6 @@ static Key keys[] = {
 	{ 0,                            XF86XK_AudioMute, spawn,   {.v = volmute } },
 	{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = voldown } },
 	{ 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = volup } },
-	{ 0,                            XKB_KEY_XF86MonBrightnessDown, spawn, {.v = brightdown } },
-	{ 0,                            XKB_KEY_XF86MonBrightnessUp, spawn, {.v = brightup } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
