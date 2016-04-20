@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-#include "/usr/include/X11/XF86keysym.h"
+#include "/usr/include/xkbcommon/xkbcommon-keysyms.h"
 #include "fibonacci.c"
 #include "grid.c"
 #include "horizgrid.c"
@@ -8,7 +8,7 @@
 static const char *fonts[] = {
 	"DejaVu Sans Mono for Powerline:size=10"
 };
-static const char dmenufont[]       = "monospace:size=10";
+static const char dmenufont[]       = "DejaVu Sans Mono for Powerline:size=10";
 static const char normbordercolor[] = "#444444";
 static const char normbgcolor[]     = "#222222";
 static const char normfgcolor[]     = "#bbbbbb";
@@ -21,7 +21,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "web", "term", "server", "irc", "file", "media", "7", "8", "9" };
+static const char *tags[] = { "web", "term", "irc", "server", "file", "media", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -64,9 +64,9 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
-static const char *volup[] = { "amixer", "-q", "set", "Master", "5%+" };
-static const char *voldown[] = { "amixer", "-q", "set", "Master", "5%-" };
-static const char *volmute[] = { "amixer", "-q", "set", "Master", "toggle", "cap" };
+static const char *volup[] = { "sh", "-c", "pactl set-sink-mute 0 false; pactl set-sink-volume 0 +5%" };
+static const char *voldown[] = { "sh", "-c", "pactl set-sink-mute 0 false; pactl set-sink-volume 0 -5%" };
+static const char *volmute[] = { "sh", "-c", "pactl set-sink-mute 0 toggle" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -97,9 +97,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ 0,                            XF86XK_AudioMute, spawn,   {.v = volmute } },
-	{ 0,                            XF86XK_AudioLowerVolume, spawn, {.v = voldown } },
-	{ 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = volup } },
+	{ 0,                            XKB_KEY_XF86AudioMute, spawn,   {.v = volmute } },
+	{ 0,                            XKB_KEY_XF86AudioLowerVolume, spawn, {.v = voldown } },
+	{ 0,                            XKB_KEY_XF86AudioRaiseVolume, spawn, {.v = volup } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
