@@ -7,7 +7,7 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"DejaVu Sans Mono for Powerline:size=10"
+	"Inconsolata for Powerline:size=10"
 };
 static const char dmenufont[]       = "monospace:size=10";
 static const char normbordercolor[] = "#444444";
