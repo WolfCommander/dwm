@@ -64,9 +64,10 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
-static const char *volup[] = { "sh", "-c", "pactl set-sink-mute 0 false; pactl set-sink-volume 0 +5%" };
-static const char *voldown[] = { "sh", "-c", "pactl set-sink-mute 0 false; pactl set-sink-volume 0 -5%" };
+static const char *volup[] = { "sh", "-c", "pactl set-sink-mute 0 false; pactl set-sink-volume 0 +5%; paplay -d 0 /usr/share/sounds/gnome/default/alerts/drip.ogg" };
+static const char *voldown[] = { "sh", "-c", "pactl set-sink-mute 0 false; pactl set-sink-volume 0 -5%; paplay -d 0 /usr/share/sounds/gnome/default/alerts/drip.ogg" };
 static const char *volmute[] = { "sh", "-c", "pactl set-sink-mute 0 toggle" };
+static const char *slockcmd[]  = { "slock" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -100,6 +101,7 @@ static Key keys[] = {
 	{ 0,                            XKB_KEY_XF86AudioMute, spawn,   {.v = volmute } },
 	{ 0,                            XKB_KEY_XF86AudioLowerVolume, spawn, {.v = voldown } },
 	{ 0,                            XKB_KEY_XF86AudioRaiseVolume, spawn, {.v = volup } },
+	{ MODKEY,                       XK_Scroll_Lock, spawn,	   {.v = slockcmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
